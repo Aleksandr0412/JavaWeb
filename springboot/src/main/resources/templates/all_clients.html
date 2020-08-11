@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(allClients)}"/>
+
+    <h1>Список пользователей</h1>
+    <span th:unless="${frontClients.size() > 0}">Пользователей пока нет, попробуйте добавить нового</span>
+    <table class="table table-hover" th:if="${frontClients.size() > 0}">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Имя</td>
+            <td>Возраст</td>
+            <td>Действия</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${frontClients}">
+            <td th:text="${c.id}"></td>
+            <td> <a th:href="@{'/clients/client/' + ${c.id}}" th:text="${c.name}"></a></td>
+            <td th:text="${c.age}"></td>
+            <td><a th:href="@{'/clients/edit/' + ${c.id}}" class="btn btn-warning">Изменить</a>
+                <a th:href="@{'/clients/delete/' + ${c.id}}" class="btn btn-danger">Удалить</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <a class="btn btn-primary" th:href="@{/clients/add}">Добавить нового пользователя</a>
+    <br>
+    <br>
+    <a th:href="@{/}" class="btn btn-secondary">на Главную страницу</a>
+</div>
+</body>
+</html>
