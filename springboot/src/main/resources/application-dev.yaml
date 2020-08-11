@@ -1,0 +1,19 @@
+server:
+  servlet:
+    context-path: /app
+  port: 8189
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=hiber
+    username: postgres
+    password: qwe
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  flyway:
+    baseline-on-migrate: true
