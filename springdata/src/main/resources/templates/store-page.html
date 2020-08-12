@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(allBooks)}"/>
+
+    <br>
+    <h1>Форма для поиска товаров</h1>
+    <form th:action="@{/books/}" method="GET">
+        <div class="form-group">
+            <label for="title">Название товара</label>
+            <input type="text" class="form-control" id="title" name="titlePart"
+                   th:value="${param.titlePart != null ? param.titlePart : null}">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="minPrice">Минимальная цена</label>
+                <input type="number" class="form-control" id="minPrice"  name="minPrice"
+                       th:value="${param.minPrice != null ? param.minPrice : null}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="maxPrice">Максимальная цена</label>
+                <input type="number" class="form-control" id="maxPrice"  name="maxPrice"
+                       th:value="${param.maxPrice != null ? param.maxPrice : null}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="minPublishYear">Минимальный год издания</label>
+                <input type="number" class="form-control" id="minPublishYear" name="minPublishYear"
+                       th:value="${param.minPublishYear != null ? param.minPublishYear : null}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="maxPublishYear">Максимальный год издания</label>
+                <input type="number" class="form-control" id="maxPublishYear"  name="maxPublishYear"
+                       th:value="${param.maxPublishYear != null ? param.maxPublishYear : null}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check form-check-inline" th:each="g : ${genres}">
+                <input class="form-check-input" type="checkbox" th:id="${g}" th:value="${g}" th:name="genre"
+                       th:checked="${param.genre != null} ? ${#strings.contains(param.genre, g)} : false">
+                <label class="form-check-label" th:for="${g}" th:text="${g.getGenreName()}"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить</button>
+    </form>
+
+    <br>
+    <br>
+
+    <h1>Список книг</h1>
+    <span th:unless="${p.getTotalPages()} > 0">По вашему запросу не было найдено ни одной книги</span>
+
+    <table class="table table-hover" th:if="${p.getTotalPages()} > 0">
+        <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Жанр</td>
+            <td>Цена</td>
+            <td>Год издания</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b : ${p.getContent()}">
+            <td th:text="${b.title}"></a></td>
+            <td th:text="${b.description}"></td>
+            <td th:text="${b.genre}"></td>
+            <td th:text="${b.price}"></td>
+            <td th:text="${b.publishYear}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Book navigation" th:if="${p.getTotalPages()} > 1">
+        <ul class="pagination">
+            <li class="page-item" th:if="${p.hasPrevious()}"><a class="page-link"
+                                                                   th:href="@{'/books?p=' + ${p.previousPageable().getPageNumber() + 1} + ${requestParameters}}">Предыдущая</a>
+            </li>
+            <li class="page-item" th:each="pageNumber : ${pageNumbers}"><a class="page-link"
+                                                                           th:href="@{'/books?p=' + ${pageNumber} + ${requestParameters}}"
+                                                                           th:text="${pageNumber}"></a></li>
+            <li class="page-item" th:if="${p.hasNext()}"><a class="page-link"
+                                                               th:href="@{'/books?p=' + ${p.nextPageable().getPageNumber() + 1} + ${requestParameters}}">Следующая</a></li>
+        </ul>
+    </nav>
+
+    <a th:href="@{/}" class="btn btn-secondary">на Главную страницу</a>
+</div>
+</body>
+</html>
