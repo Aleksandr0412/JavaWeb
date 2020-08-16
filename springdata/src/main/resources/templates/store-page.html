@@ -72,6 +72,7 @@
             <td>Жанр</td>
             <td>Цена</td>
             <td>Год издания</td>
+            <td>Действия</td>
         </tr>
         </thead>
         <tbody>
@@ -81,6 +82,8 @@
             <td th:text="${b.genre}"></td>
             <td th:text="${b.price}"></td>
             <td th:text="${b.publishYear}"></td>
+            <td><a th:href="@{'/cart/' + ${b.id}}" class="btn btn-warning">Добавить в корзину</a></td>
+        </tr>
         </tr>
         </tbody>
     </table>
@@ -90,7 +93,7 @@
             <li class="page-item" th:if="${p.hasPrevious()}"><a class="page-link"
                                                                    th:href="@{'/books?p=' + ${p.previousPageable().getPageNumber() + 1} + ${requestParameters}}">Предыдущая</a>
             </li>
-            <li class="page-item" th:each="pageNumber : ${pageNumbers}"><a class="page-link"
+            <li class="page-item-active" th:each="pageNumber : ${pageNumbers}"><a class="page-link"
                                                                            th:href="@{'/books?p=' + ${pageNumber} + ${requestParameters}}"
                                                                            th:text="${pageNumber}"></a></li>
             <li class="page-item" th:if="${p.hasNext()}"><a class="page-link"
