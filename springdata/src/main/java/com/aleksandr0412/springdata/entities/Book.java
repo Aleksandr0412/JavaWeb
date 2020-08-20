@@ -37,6 +37,19 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Collection<OrderItem> orderItems;
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Book book = (Book) o;
+//        return publishYear == book.publishYear &&
+//                Objects.equals(id, book.id) &&
+//                Objects.equals(title, book.title) &&
+//                Objects.equals(description, book.description) &&
+//                genre == book.genre &&
+//                Objects.equals(price, book.price) &&
+//                Objects.equals(orderItems, book.orderItems);
+//    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,8 +60,7 @@ public class Book {
                 Objects.equals(title, book.title) &&
                 Objects.equals(description, book.description) &&
                 genre == book.genre &&
-                Objects.equals(price, book.price) &&
-                Objects.equals(orderItems, book.orderItems);
+                Objects.equals(price, book.price);
     }
 
 }
