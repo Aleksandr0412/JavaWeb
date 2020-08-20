@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(cart)}"/>
+
+    <h1>Корзина товаров</h1>
+    <span th:unless="${orderItems.size()} > 0">Корзина пуста</span>
+
+    <div class="table-responsive" th:if="${orderItems.size()} > 0">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase">Название</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Количество</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Цена</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Удалить</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="o : ${orderItems}">
+                <th scope="row" class="border-0">
+                    <div class="p-2">
+                        <div class="ml-3 d-inline-block align-middle">
+                            <h5 class="mb-0" th:text="${o.getBook().getTitle()}"></h5>
+                        </div>
+                    </div>
+                </th>
+                <td class="border-0 align-middle" th:text="${o.getCount()}"></td>
+                <td class="border-0 align-middle" th:text="${o.getPrice()} + 'р.'"></td>
+                <td class="border-0 align-middle"><a th:href="@{'/cart/delete/' + ${orderItems.indexOf(o) + 1}}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row py-5 p-4 bg-white rounded shadow-sm" th:if="${orderItems.size() != 0}">
+        <div class="col-lg-6">
+            <a th:href="@{/cart/delete}" class="btn btn-warning">Очистить корзину</a>
+            <br>
+            <br>
+            <a th:href="@{/books}" class="btn btn-secondary">Вернуться в раздел книг</a>
+        </div>
+        <div class="col-lg-5">
+            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Итого </div>
+            <div class="p-4">
+                <ul class="list-unstyled mb-4">
+                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Сумма покупок</strong>
+                        <h5 class="font-weight-bold" th:text="${totalPrice} + 'р.'"></h5>
+                    </li>
+                </ul>
+                <a sec:authorize="isAuthenticated()" th:href="@{/cart/process}" class="btn btn-primary">Оформить заказ</a>
+                <span th:if="${orderItems.size() != 0} " sec:authorize="isAnonymous()">Пожалуйста, авторизуйтесь на сайте для оформления заказа!</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
