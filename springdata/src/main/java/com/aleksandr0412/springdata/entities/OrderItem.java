@@ -1,9 +1,9 @@
 package com.aleksandr0412.springdata.entities;
 
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Table(name = "orders_items")
 @Data
 @NoArgsConstructor
+@ToString
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

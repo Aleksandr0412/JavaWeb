@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
-    public void saveOrUpdateOrderItem(OrderItem orderItem) {
+    public void saveOrUpdate(OrderItem orderItem) {
         orderItemRepository.save(orderItem);
     }
 

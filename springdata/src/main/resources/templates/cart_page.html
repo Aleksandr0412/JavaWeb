@@ -69,7 +69,7 @@
                         <h5 class="font-weight-bold" th:text="${totalPrice} + 'р.'"></h5>
                     </li>
                 </ul>
-                <a sec:authorize="isAuthenticated()" th:href="@{/cart/process}" class="btn btn-primary">Оформить заказ</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/order/create}" class="btn btn-primary">Оформить заказ</a>
                 <span th:if="${orderItems.size() != 0} " sec:authorize="isAnonymous()">Пожалуйста, авторизуйтесь на сайте для оформления заказа!</span>
             </div>
         </div>

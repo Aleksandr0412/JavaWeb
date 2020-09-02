@@ -31,13 +31,16 @@ CREATE TABLE users_roles
     PRIMARY KEY (user_id, role_id)
 );
 
+DROP TABLE IF EXISTS orders;
 CREATE TABLE orders
 (
     id      BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users (id),
-    price   INTEGER
+    price   INTEGER,
+    status  VARCHAR(50)
 );
 
+DROP TABLE IF EXISTS orders_items;
 CREATE TABLE orders_items
 (
     id       BIGSERIAL PRIMARY KEY,

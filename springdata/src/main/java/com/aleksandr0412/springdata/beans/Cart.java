@@ -90,7 +90,7 @@ public class Cart {
         order = orderService.saveOrUpdate(order);
         for (OrderItem orderItem : orderItems) {
             orderItem.setOrder(order);
-            orderItemService.saveOrUpdateOrderItem(orderItem);
+            orderItemService.saveOrUpdate(orderItem);
         }
         clearCart();
         return order;
