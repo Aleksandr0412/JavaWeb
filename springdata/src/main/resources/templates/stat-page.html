@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Book store</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(Statistic)}"/>
+
+    <h1>Статистика</h1>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Название сервиса</td>
+            <td>Кол-во вызовов его методов</td>
+        </tr>
+        <tbody>
+        <tr>
+            <td>BookService:</td>
+            <td><span th:text="${bookServiceCount}" /></td>
+        </tr>
+        <tr>
+            <td>OrdersService:</td>
+            <td><span th:text="${ordersServiceCount}" /></td>
+        </tr>
+        <tr>
+            <td>UserService:</td>
+            <td><span th:text="${userServiceCount}" /></td>
+        </tr>
+        <tr>
+            <td>OrderItemService:</td>
+            <td><span th:text="${orderItemServiceCount}" /></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">на Главную страницу</a>
+</div>
+</body>
+</html>

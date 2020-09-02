@@ -29,6 +29,9 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Profile' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/cart}">Корзина</a>
                 </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Statistic' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{'/stat'}">Статистика</a>
+                </li>
 
                 <li sec:authorize="isAnonymous()" class="nav-item">
                     <form class="align-middle" th:action="@{/authenticate}" method="POST">
