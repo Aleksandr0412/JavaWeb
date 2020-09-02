@@ -71,6 +71,7 @@ class CartTest {
     void deleteBookFromCartTest() {
         cart.addBookToCart(1L);
         cart.addBookToCart(2L);
+
         Assertions.assertAll(
                 () -> {
                     cart.deleteBookFromCart(1);
