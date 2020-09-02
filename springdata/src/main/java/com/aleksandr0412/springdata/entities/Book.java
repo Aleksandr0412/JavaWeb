@@ -1,5 +1,6 @@
 package com.aleksandr0412.springdata.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Table(name = "books")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,4 +65,6 @@ public class Book {
                 Objects.equals(price, book.price);
     }
 
+//    public class Genre {
+//    }
 }

@@ -79,7 +79,7 @@ public class Cart {
 
     public void clearCart() {
         orderItems.clear();
-        totalPrice = new BigDecimal("0.0");
+        totalPrice = new BigDecimal("0.00");
     }
 
     public Order processOrder(String username) {
