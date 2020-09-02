@@ -1,0 +1,90 @@
+<!doctype html>
+<html ng-app="app" ng-controller="booksController">
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script type="text/javascript" src="logic.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1>Все книги</h1>
+<form novalidate ng-submit="filterBooks(1)" method="GET">
+    <div class="form-group">
+        <label for="title">Название товара</label>
+        <input type="text" class="form-control" id="title" name="titlePart"
+               ng-model="form.titlePart"
+               ng-value="{{param.titlePart != null ? param.titlePart : null}}">
+    </div>
+    <div class="form-group">
+        <label for="minPrice">Минимальная цена</label>
+        <input type="number" class="form-control" id="minPrice"  name="minPrice"
+               ng-model="form.minPrice">
+    </div>
+    <div class="form-group">
+        <label for="maxPrice">Максимальная цена</label>
+        <input type="number" class="form-control" id="maxPrice"  name="maxPrice"
+               ng-model="form.maxPrice">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="minPublishYear">Минимальный год издания</label>
+            <input type="number" class="form-control" id="minPublishYear" name="minPublishYear"
+                   ng-model="form.minPublishYear">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="maxPublishYear">Максимальный год издания</label>
+            <input type="number" class="form-control" id="maxPublishYear"  name="maxPublishYear"
+                   ng-model="form.maxPublishYear">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check form-check-inline" ng-repeat="g in genres">
+            <input class="form-check-input" type="checkbox" ng-id="{{g}}" ng-name="{{g}}" ng-model="form[g]">
+            <label class="form-check-label" ng-for="{{g}}">{{g}}</label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Применить</button>
+</form>
+
+<br>
+<br>
+
+<div ng-hide="page.totalPages === 0">
+    <h1>Список книг</h1>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Название</td>
+            <td>Жанр</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Год издания</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="b in BooksList">
+            <td>{{b.title}}</td>
+            <td>{{b.genre}}</td>
+            <td>{{b.description}}</td>
+            <td>{{b.price}}</td>
+            <td>{{b.publishYear}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<nav aria-label="Book navigation">
+    <ul class="pagination" ng-if="page.totalPages > 1">
+        <li class="page-item" ng-class="{disabled:page.first}">
+            <a class="page-link" ng-click="filterBooks(page.pageable.pageNumber)">Прошлая страница</a></li>
+        <li class="page-item" ng-repeat="p in range" ng-class="{active:page.pageable.pageNumber === p - 1}">
+            <a class="page-link" ng-click="filterBooks(p)">{{p}}</a></li>
+        <li class="page-item" ng-class="{disabled:page.last}">
+            <a class="page-link" ng-click="filterBooks(page.pageable.pageNumber + 2)">Следующая страница</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>

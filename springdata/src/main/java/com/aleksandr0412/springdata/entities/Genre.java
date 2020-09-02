@@ -11,4 +11,9 @@ public enum Genre {
     DETECTIVE("Детектив");
 
     private final String genreName;
+
+    @Override
+    public String toString() {
+        return genreName;
+    }
 }
